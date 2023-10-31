@@ -38,15 +38,77 @@ order by country desc;
 select id, company_name, country from customers
 order by country desc, company_name asc;
 
+-- group by --
+select country from customers group by country;
+
+-- get count of customers per country --
+select count(id) as 'Customer count', 
+country from customers group by country;
+
+-- get category and total units_in_stock --
+select category, sum(units_in_stock) as 'Total Stock' 
+from products
+group by category;
+
+-- all about db and tables creation, alteration and updation --
+-- to create db --
+create database awesome_db;
+
+-- to drop db --
+drop database awesome_db;
+
+-- to add/create tables --
+create database awesome_db;
+use awesome_db;
+create table awesome_table(
+	id INT,
+    first_name VARCHAR(255),
+    last_name VARCHAR(255),
+    dept VARCHAR(255)
+);
+
+-- to delete/drop a table --
+drop table awesome_table;
+
+-- create table with -- 
+-- A. not null constraint --
+-- B. AUTO_INCREMENT --
+-- C. PRIMARY KEY --
+create table awesome_employees(
+	id INT NOT NULL AUTO_INCREMENT,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255),
+    dept VARCHAR(255),
+    PRIMARY KEY (id)
+);
+
+-- create table with -- 
+-- A. FOREIGN KEY --
+create table awesome_customers(
+	id INT NOT NULL AUTO_INCREMENT,
+    company_name VARCHAR(255) NOT NULL,
+    country VARCHAR(255),
+    emp_id INT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (emp_id) references awesome_employees(id)
+);
+
+-- insert records --
+insert into awesome_employees
+(first_name, last_name, dept) values
+('David','Peter','Computer');
+
+insert into awesome_employees values 
+(default,'Tim','Smith','Mech');
 
 
+-- INNER JOIN --
+select employees.first_name, employees.dept,
+customers.company_name, customers.phone
+from employees
+INNER JOIN customers on employees.id = customers.employee_id ;
 
-
-
-
-
-
-
+-- LEFT OUTER JOIN --
 
 
 
